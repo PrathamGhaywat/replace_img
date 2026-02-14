@@ -23,6 +23,7 @@ async function replaceImageElement(img, query) {
     img.removeAttribute("srcset");
     img.style.objectFit = "cover";
   } catch (e) {
+    /* ignore DOM exceptions on some elements */
   }
 }
 
@@ -48,6 +49,43 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
   return false;
 });
+
+if (chrome.storage && chrome.storage.local) {
+  chrome.storage.local.get({ term: "cat", enabled: false }, (items) => {
+    if (items.enabled) {
+      currentQuery = items.term || null;
+      if (currentQuery) replaceAllImages(currentQuery);
+    }
+  });
+
+  chrome.storage.onChanged.addListener((changes, area) => {
+    if (area !== "local") return;
+
+    if (changes.enabled) {
+      const enabled = !!changes.enabled.newValue;
+      if (!enabled) {
+        currentQuery = null;
+        return;
+      }
+      chrome.storage.local.get({ term: "cat" }, (items) => {
+        const term = items.term || "cat";
+        currentQuery = term;
+        replaceAllImages(term);
+      });
+      return;
+    }
+
+    if (changes.term) {
+      const newTerm = changes.term.newValue;
+      chrome.storage.local.get({ enabled: false }, (items) => {
+        if (items.enabled) {
+          currentQuery = newTerm;
+          replaceAllImages(newTerm);
+        }
+      });
+    }
+  });
+}
 
 const observer = new MutationObserver(mutations => {
   if (!currentQuery) return;
