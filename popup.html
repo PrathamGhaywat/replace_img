@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Replacify</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>ReplaceImage</h1>
+      <label for="term">Replace images with</label>
+      <input id="term" type="text" placeholder="e.g. puppies" />
+
+      <div class="controls">
+        <button id="replace">Replace now</button>
+        <button id="toggle-enable" aria-pressed="true">Disable</button>
+        <small id="status"></small>
+      </div>
+
+      <div class="preview">
+        <div class="preview-label">Preview</div>
+        <img id="preview" alt="preview" />
+      </div>
+
+      <footer><small>Last used: <span id="last-used">—</span></small></footer>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

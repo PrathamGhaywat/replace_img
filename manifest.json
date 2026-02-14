@@ -3,7 +3,7 @@
   "name": "ReplaceImage",
   "version": "1.0",
   "description": "Replaces all images on a page with a term of your liking!.",
-  "permissions": ["activeTab", "scripting"],
+  "permissions": ["activeTab", "scripting", "storage"],
   "background": {
     "service_worker": "background.js"
   },
@@ -14,6 +14,7 @@
     }
   ],
   "action": {
-    "default_title": "Replacify!"
+    "default_title": "Replacify!",
+    "default_popup": "popup.html"
   }
 }
