@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Cat Image Replacer",
+  "name": "ReplaceImage",
   "version": "1.0",
-  "description": "Replaces all images on a page with cat pictures.",
+  "description": "Replaces all images on a page with a term of your liking!.",
   "permissions": ["activeTab", "scripting"],
   "background": {
     "service_worker": "background.js"
@@ -14,6 +14,6 @@
     }
   ],
   "action": {
-    "default_title": "Catify!"
+    "default_title": "Replacify!"
   }
 }
